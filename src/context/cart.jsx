@@ -14,8 +14,15 @@ const reducer = (state, action) => {
       const productsInCartIndex = state.findIndex((item) => item.id === id);
 
       if (productsInCartIndex >= 0) {
-        const newState = structuredClone(state);
-        newState[productsInCartIndex].quantity += 1;
+        const newState = [
+          ...state.slice(0, productsInCartIndex),
+          {
+            ...state[productsInCartIndex],
+            quantity: state[productsInCartIndex].quantity + 1,
+          },
+          ...state.slice(productsInCartIndex + 1),
+        ];
+
         return newState;
       }
       return [
