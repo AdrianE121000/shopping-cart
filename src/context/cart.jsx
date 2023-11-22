@@ -3,7 +3,11 @@ import { createContext } from 'react';
 
 export const CartContext = createContext();
 
-const initialState = [];
+const initialState = JSON.parse(window.localStorage.getItem('cart')) || [];
+
+const updateLocalStorage = (state) => {
+  window.localStorage.setItem('cart', JSON.stringify(state));
+};
 
 const reducer = (state, action) => {
   const { type: actionType, payload: actionPyload } = action;
@@ -23,24 +27,32 @@ const reducer = (state, action) => {
           ...state.slice(productsInCartIndex + 1),
         ];
 
+        updateLocalStorage(newState);
+
         return newState;
       }
-      return [
+      const newState = [
         ...state,
         {
           ...actionPyload,
           quantity: 1,
         },
       ];
+      updateLocalStorage(newState);
+      return newState;
     }
 
     case 'REMOVE_FROM_CART': {
       const { id } = actionPyload;
-      return state.filter((item) => item.id !== id);
+      const newState = state.filter((item) => item.id !== id);
+
+      updateLocalStorage(newState);
+      return newState;
     }
 
     case 'CLEAR_CART': {
-      return initialState;
+      updateLocalStorage([]);
+      return [];
     }
   }
 
