@@ -1,7 +1,6 @@
 import { useId } from 'react';
 import { useCategory } from '../hooks/useCategory';
 import { useFilters } from '../hooks/useFilters';
-//import { categories } from '../mocks/categories.json';
 import './filters.css';
 
 export function Filters() {
