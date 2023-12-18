@@ -38,11 +38,11 @@ export function Filters() {
         <span>{filters.price}</span>
       </div>
       <div>
-        <label htmlFor={categoryFilterId}>Price</label>
+        <label htmlFor={categoryFilterId}>Category</label>
         <select
           id={categoryFilterId}
           onChange={handleChangeCategory}>
-          <option value='all'>Todas</option>
+          <option value='all'>All</option>
           {categories.map((cat, index) => (
             <option
               key={index}
